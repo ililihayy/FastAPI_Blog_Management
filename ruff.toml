@@ -1,0 +1,23 @@
+target-version = "py312"
+
+line-length = 120
+
+[lint.flake8-builtins]
+builtins-ignorelist = ["id", "type"]
+
+[lint.flake8-pytest-style]
+parametrize-names-type = "csv"
+
+[lint.pylint]
+max-args = 7
+max-public-methods = 30
+
+[lint.isort]
+known-first-party = ["traveltech_*"]
+combine-as-imports = true
+
+[lint.mccabe]
+max-complexity = 10
+
+[lint.per-file-ignores]
+"__init__.py" = ["F401"]
