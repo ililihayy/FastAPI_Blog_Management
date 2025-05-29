@@ -1,5 +1,4 @@
 from pydantic import BaseModel
-from datetime import datetime
 
 
 class TopicBase(BaseModel):
@@ -13,10 +12,11 @@ class TopicCreate(TopicBase): ...
 class TopicUpdate(TopicBase): ...
 
 
+class TopicRead(TopicBase): ...
+
+
 class TopicInDB(TopicBase):
     id: int
-    created_at: datetime
-    updated_at: datetime
 
     class Config:
         orm_mode = True

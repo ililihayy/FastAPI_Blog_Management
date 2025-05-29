@@ -13,6 +13,9 @@ class CommentCreate(CommentBase): ...
 class CommentUpdate(CommentBase): ...
 
 
+class CommentRead(CommentBase): ...
+
+
 class CommentInDB(CommentBase):
     id: int
     created_at: datetime
