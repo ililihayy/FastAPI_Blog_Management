@@ -12,11 +12,11 @@ class TopicCreate(TopicBase): ...
 class TopicUpdate(TopicBase): ...
 
 
-class TopicRead(TopicBase): ...
-
-
 class TopicInDB(TopicBase):
     id: int
 
     class Config:
         orm_mode = True
+
+
+class TopicRead(TopicInDB): ...

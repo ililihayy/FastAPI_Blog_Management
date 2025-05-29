@@ -6,8 +6,6 @@ from sqlalchemy.orm import relationship, mapped_column, Mapped
 
 
 class Comment(Base):
-    __tablename__ = "comments"
-
     id = mapped_column(Integer, primary_key=True, index=True)
     content = mapped_column(Text, nullable=False)
     post_id = mapped_column(Integer, ForeignKey("posts.id"))

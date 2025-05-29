@@ -2,22 +2,32 @@ from typing import List, Optional
 
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
-from sqlalchemy import delete
+from sqlalchemy import delete, asc, desc
 
 from ..models import Comment
 from ..schemas import CommentCreate, CommentUpdate
 
 
 async def create_comment(db: AsyncSession, comment: CommentCreate, post_id: int) -> Comment:
-    db_comment = Comment(**comment.model_dump(), post_id=post_id)
+    db_comment = Comment(**comment.model_dump())
     db.add(db_comment)
     await db.commit()
     await db.refresh(db_comment)
     return db_comment
 
 
-async def get_comments_for_post(db: AsyncSession, post_id: int, skip: int = 0, limit: int = 100) -> List[Comment]:
-    result = await db.execute(select(Comment).where(Comment.post_id == post_id).offset(skip).limit(limit))
+async def get_comments_for_post(
+    db: AsyncSession, post_id: int, skip: int = 0, limit: int = 100, sort_by: str = "id", order: str = "asc"
+) -> List[Comment]:
+    if not hasattr(Comment, sort_by):
+        sort_by = "id"
+
+    order_func = asc if order.lower() == "asc" else desc
+    sort_column = getattr(Comment, sort_by)
+
+    result = await db.execute(
+        select(Comment).where(Comment.post_id == post_id).order_by(order_func(sort_column)).offset(skip).limit(limit)
+    )
     return result.scalars().all()
 
 

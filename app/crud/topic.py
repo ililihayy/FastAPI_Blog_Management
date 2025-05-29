@@ -2,7 +2,7 @@ from ..models import Topic, Post
 from ..schemas import TopicCreate, TopicUpdate, PostCreate
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
-from sqlalchemy import delete
+from sqlalchemy import delete, asc, desc
 from typing import List, Optional
 
 
@@ -14,8 +14,16 @@ async def create_topic(db: AsyncSession, topic: TopicCreate) -> Topic:
     return db_topic
 
 
-async def get_topics(db: AsyncSession, skip: int = 0, limit: int = 100) -> List[Topic]:
-    result = await db.execute(select(Topic).offset(skip).limit(limit))
+async def get_topics(
+    db: AsyncSession, skip: int = 0, limit: int = 100, sort_by: str = "id", order: str = "asc"
+) -> List[Topic]:
+    if not hasattr(Topic, sort_by):
+        sort_by = "id"
+
+    order_func = asc if order.lower() == "asc" else desc
+    sort_column = getattr(Topic, sort_by)
+
+    result = await db.execute(select(Topic).order_by(order_func(sort_column)).offset(skip).limit(limit))
     return result.scalars().all()
 
 

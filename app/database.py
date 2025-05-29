@@ -19,6 +19,6 @@ class Base(AsyncAttrs, DeclarativeBase):
         return f"{cls.__name__.lower()}s"
 
 
-async def get_db():
+async def get_db() -> AsyncSessionLocal:  # type: ignore
     async with AsyncSessionLocal() as session:
         yield session

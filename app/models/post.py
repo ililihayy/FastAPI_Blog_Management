@@ -6,8 +6,6 @@ from datetime import datetime
 
 
 class Post(Base):
-    __tablename__ = "posts"
-
     id = mapped_column(Integer, primary_key=True, index=True)
     title = mapped_column(String, nullable=False)
     content = mapped_column(Text, nullable=False)

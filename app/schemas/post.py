@@ -14,9 +14,6 @@ class PostCreate(PostBase): ...
 class PostUpdate(PostBase): ...
 
 
-class PostRead(PostBase): ...
-
-
 class PostInDB(PostBase):
     id: int
     created_at: datetime
@@ -24,3 +21,6 @@ class PostInDB(PostBase):
 
     class Config:
         orm_mode = True
+
+
+class PostRead(PostInDB): ...

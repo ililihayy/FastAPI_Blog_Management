@@ -13,9 +13,6 @@ class CommentCreate(CommentBase): ...
 class CommentUpdate(CommentBase): ...
 
 
-class CommentRead(CommentBase): ...
-
-
 class CommentInDB(CommentBase):
     id: int
     created_at: datetime
@@ -23,3 +20,6 @@ class CommentInDB(CommentBase):
 
     class Config:
         orm_mode = True
+
+
+class CommentRead(CommentInDB): ...
