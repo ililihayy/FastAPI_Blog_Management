@@ -24,8 +24,8 @@ An asynchronous REST API built with FastAPI for managing a forum with topics, po
 1. Clone the repository:
 
 ```bash
-git clone <repository_url>
-cd <repository_folder>
+git clone https://github.com/ililihayy/FastAPI_Blog_Management.git
+cd FastAPI_Blog_Management
 ```
 
 2. Create and activate a virtual environment:
